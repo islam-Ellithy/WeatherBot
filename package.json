@@ -6,12 +6,27 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "body-parser": "~1.18.2",
+    "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
-    "express": "~4.15.5",
+    "express": "^4.15.5",
     "morgan": "~1.9.0",
     "pug": "2.0.0-beta11",
     "serve-favicon": "~2.4.5"
-  }
+  },
+  "description": "",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/islam-Ellithy/WeatherBot.git"
+  },
+  "keywords": [
+    "chat-bot"
+  ],
+  "author": "islam-Ellithy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/islam-Ellithy/WeatherBot/issues"
+  },
+  "homepage": "https://github.com/islam-Ellithy/WeatherBot#readme"
 }
