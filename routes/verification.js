@@ -39,7 +39,7 @@ router.post("/", function (req, res, next) {
                     apiaiSession.on('response', (response) => {
                         const result = response.result.fulfillment.speech;
 
-                        sendTextMessage(senderId, result);
+                        sendText(senderId, result);
                     });
 
                     apiaiSession.on('error', error => console.log(error));
