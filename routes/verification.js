@@ -19,26 +19,23 @@ router.post("/", function (req, res, next) {
 
     console.log(req);
 
-    msg_events
-        .array
-        .forEach(element => {
-            element
-                .messaging
-                .array
-                .forEach(msg => {
+    msg_events.forEach(function (element) {
+        element
+            .messaging
+            .forEach(function (msg) {
 
-                    msgSender = msg.sender.id;
-                    msgText = msg.message.text;
-                    if (msgSender && msgText) {
+                msgSender = msg.sender.id;
+                msgText = msg.message.text;
+                if (msgSender && msgText) {
 
-                        console.log(msgText);
-                        addMsg(msgText);
-                        sendText(msgSender, msgText);
-                        res.sendStatus(200);
-                    }
-                });
+                    console.log(msgText);
+                    addMsg(msgText);
+                    sendText(msgSender, msgText);
+                    res.sendStatus(200);
+                }
+            });
 
-        });
+    });
 });
 
 function addMsg(msg) {
