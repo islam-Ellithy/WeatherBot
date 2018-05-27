@@ -19,10 +19,10 @@ router.post("/", function (req, res, next) {
 
     console.log(req);
 
-    msg_events.forEach(function (element) {
+    msg_events.forEach(element => {
         element
             .messaging
-            .forEach(function (msg) {
+            .forEach(msg => {
 
                 msgSender = msg.sender.id;
                 msgText = msg.message.text;
@@ -31,8 +31,9 @@ router.post("/", function (req, res, next) {
                     console.log(msgText);
                     addMsg(msgText);
                     sendText(msgSender, msgText);
-                    res.sendStatus(200);
                 }
+                res.sendStatus(200);
+
             });
 
     });
@@ -47,11 +48,11 @@ function addMsg(msg) {
         });
 }
 function sendText(id, message) {
-
+    var token = "EAAI7Qf4HBZBEBAOjZAg3mvB8iivIyddka2UbgTnyA2x5FVGLJBrfclO8ufd3ZBSfazJl07TRuN2fxeg" +
+            "pGGJvhjL6xhKFLDLEnz0tEdv4cI2MfOasWIAdPvVkUDB9GWvvZCZCp7hCEZAcMMM01F4x7iNue4eG2ZB" +
+            "JcZBdMV8uQD4XhjLVMTNDHdfU";
     request({
-        url: "https://graph.facebook.com/v2.6/me/messages?access_token=EAAI7Qf4HBZBEBADCmdAnSl" +
-                "bZBzqfxJmgIf0XcpoQGZB2tKXLIctgXuyGMvUEBLEP0SijrKlXYVx2NlhdSPApl4sXVLl1SGLofwzK4k" +
-                "iPgytT66VLp3ms1FB7eaDMBaOFRO0n2NNplG3t5MDt1Cm5AJegk1RUxFcBCAXGepmtVC06e4qQG6ZC",
+        url: "https://graph.facebook.com/v2.6/me/messages?access_token=" + token,
         method: "POST",
         json: {
             recipient: {
