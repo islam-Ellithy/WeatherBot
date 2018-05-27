@@ -34,7 +34,7 @@ router.post("/", function (req, res, next) {
 
                 if (senderId && message) {
 
-                    const apiaiSession = apiAiClient.textRequest(message, {sessionId: 'crowdbotics_bot'});
+                    const apiaiSession = apiAiClient.textRequest(message, {sessionId: 'WeatherBot'});
 
                     apiaiSession.on('response', (response) => {
                         const result = response.result.fulfillment.speech;
