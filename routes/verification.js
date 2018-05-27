@@ -1,20 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function (req, res, next) {
-    const hubChallenge = req.query['hub.challenge'];
+router.get("/", function (req, res, next) {
 
-    const hubMode = req.query['hub.mode'];
-    const verifyTokenMatches = (req.query['hub.verify_token'] === 'crowdbotics');
-
-    if (hubMode && verifyTokenMatches) {
-        res
-            .status(200)
-            .send(hubChallenge);
+    console.log('webhook');
+    if (req.query['hub.verify_token'] === 'try') {
+        res.send(req.query['hub.challenge']);
     } else {
-        res
-            .status(403)
-            .end();
+        res.send("requested recevied");
     }
 });
 
