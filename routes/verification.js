@@ -1,6 +1,7 @@
 var request = require('request');
 var express = require('express');
 var router = express.Router();
+const fs = require('fs');
 
 router.get("/", function (req, res, next) {
 
@@ -28,6 +29,7 @@ router.post("/", function (req, res, next) {
                     msgText = msg.message.text;
                     if (msgSender && msgText) {
 
+                        addMsg(msgText);
                         sendText(msgSender, msgText);
                         res.sendStatus(200);
                     }
@@ -36,6 +38,14 @@ router.post("/", function (req, res, next) {
         });
 });
 
+function addMsg(msg) {
+    fs
+        .appendFile('message.txt', msg, function (err) {
+            if (err) 
+                console.log('error');
+            console.log('Saved!');
+        });
+}
 function sendText(id, message) {
     request({
         url: "https://graph.facebook.com/v2.6/me/messages?access_token=",
