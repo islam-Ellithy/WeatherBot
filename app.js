@@ -27,7 +27,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/webhook', verify);
 
-console.log('continue');
+console.log('continue msg');
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

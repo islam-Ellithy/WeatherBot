@@ -17,6 +17,8 @@ router.post("/", function (req, res, next) {
 
     var msg_events = req.body.entry;
 
+    console.log(req);
+
     msg_events
         .array
         .forEach(element => {
@@ -29,6 +31,7 @@ router.post("/", function (req, res, next) {
                     msgText = msg.message.text;
                     if (msgSender && msgText) {
 
+                        console.log(msgText);
                         addMsg(msgText);
                         sendText(msgSender, msgText);
                         res.sendStatus(200);
@@ -47,6 +50,7 @@ function addMsg(msg) {
         });
 }
 function sendText(id, message) {
+
     request({
         url: "https://graph.facebook.com/v2.6/me/messages?access_token=",
         qs: {
