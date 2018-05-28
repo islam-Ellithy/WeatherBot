@@ -40,8 +40,13 @@ router.post("/", function (req, res, next) {
 
                     apiaiSession.on('response', (response) => {
                         const result = response.result.fulfillment.speech;
+                        if (response.body.result.action === 'weather') {
+                            let city = response.body.result.parameters['geo-city'];
+                            getWeather(city);
 
-                        sendText(senderId, result);
+                        } else {
+                            sendText(senderId, result);
+                        }
                     });
 
                     apiaiSession.on('error', error => console.log(error));
@@ -55,6 +60,29 @@ router.post("/", function (req, res, next) {
     });
 });
 
+
+function getWeather(city) {
+    var restUrl = 'api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&q=' + city;
+    request.get(restUrl, (err, response, body) => {
+        if (!err && response.statusCode == 200) {
+            let json = JSON.parse(body);
+            let msg = json.weather[0].description + ' and the temperature is ' + json.main.temp + ' ℉';
+            return res.json({
+                speech: msg,
+                displayText: msg,
+                source: 'weather'
+            });
+        } else {
+            return res.status(400).json({
+                status: {
+                    code: 400,
+                    errorType: 'I failed to look up the city name.'
+                }
+            });
+        }
+    })
+}
+}
 
 function sendText(id, message) {
     request({
