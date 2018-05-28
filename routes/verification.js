@@ -33,7 +33,7 @@ router.post("/", function (req, res, next) {
                 const message = msg.message.text;
 
                 if (senderId && message) {
-
+/*
                     const apiaiSession = apiAiClient.textRequest(message, {
                         sessionId: 'WeatherBot'
                     });
@@ -46,7 +46,7 @@ router.post("/", function (req, res, next) {
 
                     apiaiSession.on('error', error => console.log(error));
                     apiaiSession.end();
-
+*/
                     sendText(senderId, result);
 
 
