@@ -5,8 +5,8 @@ const fs = require('fs');
 const API_AI_TOKEN = 'cc36a07568d44ab8937834d5550fb748';
 const apiAiClient = require('apiai')(API_AI_TOKEN);
 const FACEBOOK_ACCESS_TOKEN = "EAAI7Qf4HBZBEBAOjZAg3mvB8iivIyddka2UbgTnyA2x5FVGLJBrfclO8ufd3ZBSfazJl07TRuN2fxeg" +
-        "pGGJvhjL6xhKFLDLEnz0tEdv4cI2MfOasWIAdPvVkUDB9GWvvZCZCp7hCEZAcMMM01F4x7iNue4eG2ZB" +
-        "JcZBdMV8uQD4XhjLVMTNDHdfU";
+    "pGGJvhjL6xhKFLDLEnz0tEdv4cI2MfOasWIAdPvVkUDB9GWvvZCZCp7hCEZAcMMM01F4x7iNue4eG2ZB" +
+    "JcZBdMV8uQD4XhjLVMTNDHdfU";
 
 router.get("/", function (req, res, next) {
 
@@ -34,7 +34,9 @@ router.post("/", function (req, res, next) {
 
                 if (senderId && message) {
 
-                    const apiaiSession = apiAiClient.textRequest(message, {sessionId: 'WeatherBot'});
+                    const apiaiSession = apiAiClient.textRequest(message, {
+                        sessionId: 'WeatherBot'
+                    });
 
                     apiaiSession.on('response', (response) => {
                         const result = response.result.fulfillment.speech;
@@ -44,6 +46,9 @@ router.post("/", function (req, res, next) {
 
                     apiaiSession.on('error', error => console.log(error));
                     apiaiSession.end();
+
+                    sendText(senderId, result);
+
 
                 }
                 res.sendStatus(200);
@@ -56,11 +61,12 @@ router.post("/", function (req, res, next) {
 function addMsg(msg) {
     fs
         .appendFile('message.txt', msg, function (err) {
-            if (err) 
+            if (err)
                 console.log('error');
             console.log('Saved!');
         });
 }
+
 function sendText(id, message) {
     request({
         url: "https://graph.facebook.com/v2.6/me/messages?access_token=",
