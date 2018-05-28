@@ -1,5 +1,6 @@
 var request = require('request');
 var express = require('express');
+var api = require('apiai');
 var router = express.Router();
 const fs = require('fs');
 const API_AI_TOKEN = 'cc36a07568d44ab8937834d5550fb748';
@@ -33,7 +34,6 @@ router.post("/", function (req, res, next) {
                 const message = msg.message.text;
 
                 if (senderId && message) {
-/*
                     const apiaiSession = apiAiClient.textRequest(message, {
                         sessionId: 'WeatherBot'
                     });
@@ -46,7 +46,7 @@ router.post("/", function (req, res, next) {
 
                     apiaiSession.on('error', error => console.log(error));
                     apiaiSession.end();
-*/
+
                     sendText(senderId, result);
 
 
@@ -58,14 +58,6 @@ router.post("/", function (req, res, next) {
     });
 });
 
-function addMsg(msg) {
-    fs
-        .appendFile('message.txt', msg, function (err) {
-            if (err)
-                console.log('error');
-            console.log('Saved!');
-        });
-}
 
 function sendText(id, message) {
     request({
