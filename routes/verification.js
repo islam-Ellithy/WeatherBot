@@ -47,9 +47,6 @@ router.post("/", function (req, res, next) {
                     apiaiSession.on('error', error => console.log(error));
                     apiaiSession.end();
 
-                    sendText(senderId, result);
-
-
                 }
                 res.sendStatus(200);
 
@@ -61,9 +58,9 @@ router.post("/", function (req, res, next) {
 
 function sendText(id, message) {
     request({
-        url: "https://graph.facebook.com/v2.6/me/messages?access_token=",
+        url: "https://graph.facebook.com/v2.6/me/messages",
         qs: {
-            FACEBOOK_ACCESS_TOKEN
+            access_token: FACEBOOK_ACCESS_TOKEN
         },
         method: "POST",
         json: {
