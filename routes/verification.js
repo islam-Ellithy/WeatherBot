@@ -42,11 +42,11 @@ router.post("/", function (req, res, next) {
                         const result = response.result.fulfillment.speech;
                         if (response.body.result.action === 'weather') {
                             let city = response.body.result.parameters['geo-city'];
-                            getWeather(city);
+                            result = getWeather(city);
 
-                        } else {
-                            sendText(senderId, result);
                         }
+                        sendText(senderId, result);
+
                     });
 
                     apiaiSession.on('error', error => console.log(error));
