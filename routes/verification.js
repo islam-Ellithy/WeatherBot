@@ -41,7 +41,7 @@ router.post("/", function (req, res, next) {
                     apiaiSession.on('response', (response) => {
                         const result = response.result.fulfillment.speech;
                         if (response.result.action === 'weather') {
-                            let city = response.body.result.parameters['geo-city'];
+                            let city = response.result.parameters['geo-city'];
                             result = getWeather(city);
 
                         }
