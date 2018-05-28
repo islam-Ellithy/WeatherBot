@@ -67,21 +67,11 @@ function getWeather(city) {
         if (!err && response.statusCode == 200) {
             let json = JSON.parse(body);
             let msg = json.weather[0].description + ' and the temperature is ' + json.main.temp + ' ℉';
-            return res.json({
-                speech: msg,
-                displayText: msg,
-                source: 'weather'
-            });
+            return msg;
         } else {
-            return res.status(400).json({
-                status: {
-                    code: 400,
-                    errorType: 'I failed to look up the city name.'
-                }
-            });
+            return 'I failed to look up the city name.';
         }
     })
-}
 }
 
 function sendText(id, message) {
