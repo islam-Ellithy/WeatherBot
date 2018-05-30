@@ -99,7 +99,6 @@ function getWeather(senderId, city) {
         })
         .catch(error => {
             sendText(senderId, error.message);
-
         });
 }
 
