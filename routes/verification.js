@@ -70,35 +70,37 @@ router.post("/", function (req, res, next) {
 });
 
 
+
 function getWeather(senderId, city) {
 
     var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&q=' + city;
-    request.get(restUrl, (err, response, body) => {
-        if (!err && response.statusCode == 200) {
-            sendText(senderId, 'msg');
+    /* request.get(restUrl, (err, response, body) => {
+         if (!err && response.statusCode == 200) {
+             sendText(senderId, 'msg');
 
-            let json = JSON.parse(body);
+             let json = JSON.parse(body);
+             let msg = json.weather[0].description + ' and the temperature is ' + json.main.temp + ' ℉';
+             return msg;
+         } else {
+             sendText(senderId, err.message);
+             return 'I failed to look up the city name.';
+         }
+     });*/
+
+    const axios = require('axios');
+
+    axios.get(restUrl)
+        .then(response => {
+
+            let json = response.data;
             let msg = json.weather[0].description + ' and the temperature is ' + json.main.temp + ' ℉';
-            return msg;
-        } else {
-            sendText(senderId, err.message);
-            return 'I failed to look up the city name.';
-        }
-    });
-    /*
-        const axios = require('axios');
+            sendText(senderId, msg);
 
-        axios.get(restUrl)
-            .then(response => {
+        })
+        .catch(error => {
+            sendText(senderId, error.message);
 
-                let json = response.data;
-                let msg = json.weather[0].description + ' and the temperature is ' + json.main.temp + ' ℉';
-                
-            })
-            .catch(error => {
-                console.log(error);
-            });
-      */
+        });
     /*
              https.get(restUrl, (resp) => {
              let data = '';
