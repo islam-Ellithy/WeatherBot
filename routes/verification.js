@@ -114,7 +114,17 @@ function sendText(id, message) {
                 id: id
             },
             message: {
-                text: message
+                text: message,
+                quick_replies: [{
+                        content_type: "text",
+                        title: "Search",
+                        payload: "<POSTBACK_PAYLOAD>",
+                        image_url: ""
+                    },
+                    {
+                        content_type: "location"
+                    }
+                ]
             }
         }
     });
