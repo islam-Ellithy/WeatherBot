@@ -54,9 +54,8 @@ router.post("/", function (req, res, next) {
                             let location = response.result.parameters['location'];
                             let date = response.result.parameters['date-time'];
                             //result = 'welcome ' + city; 
-                            if (!city)
-                                if (location)
-                                    city = location;
+                            if (location !== '' && location !== null)
+                                city = location;
                             result = getWeather(senderId, city);
                         } else {
                             sendText(senderId, result);
