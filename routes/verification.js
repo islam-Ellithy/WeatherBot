@@ -31,6 +31,22 @@ router.post("/", function (req, res, next) {
 
     console.log(req);
 
+    res.json({
+        'speech': 'When',
+        'displayText': 'When',
+        'messages': [{
+            'title': 'when',
+            'replies': ['12:00',
+                '13:00',
+                '17:00',
+                '18:00'
+            ],
+            'type': 2
+        }],
+        'source': 'dimwei.com'
+    });
+
+    
     msg_events.forEach(element => {
         element
             .messaging
