@@ -74,7 +74,7 @@ router.post("/", function (req, res, next) {
                             var cord = msg.attachments[0].payload.coordinates;
                             var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&lat=' + '31.24' + '&lon=' + '30.05';
 
-                            getWeather(senderId, 'restUrl');
+                            //getWeather(senderId, 'restUrl');
                         } else {
                             sendText(senderId, result);
                         }
@@ -95,7 +95,9 @@ router.post("/", function (req, res, next) {
 function getWeather(senderId, city) {
 
     var axios = require('axios');
-    var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&lat=' + '31.24' + '&lon=' + '30.05';
+    var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&q=' + city;
+
+    //var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&lat=' + '31.24' + '&lon=' + '30.05';
 
     axios.get(restUrl)
         .then(response => {
@@ -109,6 +111,7 @@ function getWeather(senderId, city) {
             sendText(senderId, error.message);
         });
 }
+
 
 function sendText(id, message) {
     request({
