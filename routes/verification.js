@@ -46,10 +46,8 @@ router.post("/", function (req, res, next) {
 
                         if (response.result.action === 'weather') {
                             let city = response.result.parameters['geo-city'];
-                            result = response; //getWeather(city);
-
+                            result = 'welcome ' + city; //getWeather(city);
                         }
-                        result = response.result.parameters['geo-city']; //getWeather(city);
 
                         sendText(senderId, result);
 
