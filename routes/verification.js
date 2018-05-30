@@ -31,22 +31,7 @@ router.post("/", function (req, res, next) {
 
     console.log(req);
 
-    res.json({
-        'speech': 'When',
-        'displayText': 'When',
-        'messages': [{
-            'title': 'when',
-            'replies': ['12:00',
-                '13:00',
-                '17:00',
-                '18:00'
-            ],
-            'type': 2
-        }],
-        'source': 'dimwei.com'
-    });
 
-    
     msg_events.forEach(element => {
         element
             .messaging
@@ -132,15 +117,8 @@ function sendText(id, message) {
             message: {
                 text: message,
                 quick_replies: [{
-                        content_type: "text",
-                        title: "Search",
-                        payload: "<POSTBACK_PAYLOAD>",
-                        image_url: ""
-                    },
-                    {
-                        content_type: "location"
-                    }
-                ]
+                    content_type: "location"
+                }]
             }
         }
     });
