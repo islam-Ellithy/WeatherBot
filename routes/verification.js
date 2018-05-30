@@ -72,7 +72,7 @@ router.post("/", function (req, res, next) {
 
 function getWeather(senderId, city) {
 
-    var restUrl = 'api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&q=' + city;
+    var restUrl = 'https://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&q=' + city;
     request.get(restUrl, (err, response, body) => {
         if (!err && response.statusCode == 200) {
             let json = body;
