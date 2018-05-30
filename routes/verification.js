@@ -70,10 +70,10 @@ router.post("/", function (req, res, next) {
                                 getWeather(senderId, restUrl);
                             }
 
-                        } else if (msg.hasOwnProperty('attachments')) {
-                            if (msg.attachments[0].hasOwnProperty('type')) {
-                                if (msg.attachments[0].hasOwnProperty('type') === 'location')
-                                    var cord = msg.attachments[0].payload.coordinates;
+                        } else if (msg.message.hasOwnProperty('attachments')) {
+                            if (msg.message.attachments[0].hasOwnProperty('type')) {
+                                if (msg.message.attachments[0].hasOwnProperty('type') === 'location')
+                                    var cord = msg.message.attachments[0].payload.coordinates;
 
                                 var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&lat=' + '31.24' + '&lon=' + '30.05';
 
