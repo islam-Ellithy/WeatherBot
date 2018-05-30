@@ -41,7 +41,7 @@ router.post("/", function (req, res, next) {
 
                     apiaiSession.on('response', (response) => {
 
-                        
+
                         const result = response.result.fulfillment.speech;
 
                         if (response.result.action === 'weather') {
@@ -49,7 +49,7 @@ router.post("/", function (req, res, next) {
                             result = response; //getWeather(city);
 
                         }
-                        result = response; //getWeather(city);
+                        result = JSON.stringify(response); //getWeather(city);
 
                         sendText(senderId, result);
 
