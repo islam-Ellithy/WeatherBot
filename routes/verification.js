@@ -75,7 +75,7 @@ function getWeather(senderId, city) {
     var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&q=' + city;
     request.get(restUrl, (err, response, body) => {
         if (!err && response.statusCode == 200) {
-            let json = body;
+            let json = JSON.parse(body);
             let msg = json.weather[0].description + ' and the temperature is ' + json.main.temp + ' ℉';
             sendText(senderId, msg);
             return msg;
