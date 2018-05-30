@@ -71,11 +71,15 @@ router.post("/", function (req, res, next) {
                             }
 
                         } else if (msg.hasOwnProperty('attachments')) {
-                            if (attachments[0].hasOwnProperty('type'))
-                                var cord = msg.attachments[0].payload.coordinates;
-                            var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&lat=' + '31.24' + '&lon=' + '30.05';
+                            if (attachments[0].hasOwnProperty('type')) {
+                                if (attachments[0].hasOwnProperty('type') === 'location')
+                                    var cord = msg.attachments[0].payload.coordinates;
 
-                            getWeather(senderId, restUrl);
+                                var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&lat=' + '31.24' + '&lon=' + '30.05';
+
+                                getWeather(senderId, restUrl);
+
+                            }
                         } else {
                             sendText(senderId, result);
                         }
