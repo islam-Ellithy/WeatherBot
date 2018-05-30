@@ -69,7 +69,7 @@ router.post("/", function (req, res, next) {
                                 getWeather(senderId, restUrl);
                             }
 
-                        } else if (msg.message.hasOwnProperty('attachments')) {
+                        } else if (msg.message.attachments.length > 0) {
                             var attachment = msg.message.attachments[0];
                             var cord;
                             if (attachment.hasOwnProperty('type')) {
@@ -84,7 +84,7 @@ router.post("/", function (req, res, next) {
 
                                 //getWeather(senderId, restUrl);
                             }
-                            sendText(senderId,'location');
+                            sendText(senderId, 'location');
                         } else {
                             sendText(senderId, result);
                         }
