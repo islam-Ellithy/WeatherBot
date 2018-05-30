@@ -93,7 +93,7 @@ function getWeather(senderId, city) {
         .then(response => {
 
             let json = response.data;
-            let msg = 'Weather in ' + city + ' is ' + json.weather[0].main + ' and the temperature is ' + json.main.temp + ' ℉';
+            let msg = city + '\n' + json.weather[0].description + ' and the temperature is ' + json.main.temp + ' ℉';
             sendText(senderId, msg);
 
         })
