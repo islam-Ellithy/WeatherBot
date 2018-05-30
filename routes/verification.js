@@ -74,10 +74,10 @@ router.post("/", function (req, res, next) {
 
 
 
-function getWeather(city) {
+function getWeather(senderId, city) {
 
     var restUrl = 'api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&q=' + city;
-    /*request.get(restUrl, (err, response, body) => {
+    request.get(restUrl, (err, response, body) => {
         if (!err && response.statusCode == 200) {
             let json = body;
             let msg = json.weather[0].description + ' and the temperature is ' + json.main.temp + ' ℉';
@@ -87,28 +87,42 @@ function getWeather(city) {
             sendText(senderId, 'I failed to look up the city name.');
             return 'I failed to look up the city name.';
         }
-    });*/
-
-    https.get(restUrl, (resp) => {
-        let data = '';
-
-        // A chunk of data has been recieved.
-        resp.on('data', (chunk) => {
-            data += chunk;
-        });
-
-        // The whole response has been received. Print out the result.
-        resp.on('end', () => {
-            let json = data;
-            let msg = json.weather[0].description + ' and the temperature is ' + json.main.temp + ' ℉';
-            sendText(senderId, msg);
-            console.log(JSON.parse(data).explanation);
-        });
-
-    }).on("error", (err) => {
-        console.log("Error: " + err.message);
     });
+    /*
+        const axios = require('axios');
 
+        axios.get(restUrl)
+            .then(response => {
+
+                let json = response.data;
+                let msg = json.weather[0].description + ' and the temperature is ' + json.main.temp + ' ℉';
+                
+            })
+            .catch(error => {
+                console.log(error);
+            });
+      */
+    /*
+             https.get(restUrl, (resp) => {
+             let data = '';
+
+             // A chunk of data has been recieved.
+             resp.on('data', (chunk) => {
+                 data += chunk;
+             });
+
+             // The whole response has been received. Print out the result.
+             resp.on('end', () => {
+                 let json = data;
+                 let msg = json.weather[0].description + ' and the temperature is ' + json.main.temp + ' ℉';
+                 sendText(senderId, msg);
+                 console.log(JSON.parse(data).explanation);
+             });
+
+         }).on("error", (err) => {
+             console.log("Error: " + err.message);
+         });
+     */
 }
 
 function sendText(id, message) {
