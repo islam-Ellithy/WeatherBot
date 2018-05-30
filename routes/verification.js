@@ -70,7 +70,7 @@ router.post("/", function (req, res, next) {
                                 getWeather(senderId, restUrl);
                             }
 
-                        } else if (attachment === 'location') {
+                        } else if (msg.attachments[0].type === 'location') {
                             //var cord = msg.attachments[0].payload.coordinates;
                             var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&lat=' + '31.24' + '&lon=' + '30.05';
 
