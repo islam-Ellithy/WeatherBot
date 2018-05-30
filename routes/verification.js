@@ -9,6 +9,12 @@ const FACEBOOK_ACCESS_TOKEN = "EAAI7Qf4HBZBEBAOjZAg3mvB8iivIyddka2UbgTnyA2x5FVGL
     "pGGJvhjL6xhKFLDLEnz0tEdv4cI2MfOasWIAdPvVkUDB9GWvvZCZCp7hCEZAcMMM01F4x7iNue4eG2ZB" +
     "JcZBdMV8uQD4XhjLVMTNDHdfU";
 
+
+
+const https = require('https');
+
+
+
 router.get("/", function (req, res, next) {
 
     console.log('webhook');
@@ -67,9 +73,11 @@ router.post("/", function (req, res, next) {
 });
 
 
+
 function getWeather(city) {
+
     var restUrl = 'api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&q=' + city;
-    request.get(restUrl, (err, response, body) => {
+    /*request.get(restUrl, (err, response, body) => {
         if (!err && response.statusCode == 200) {
             let json = body;
             let msg = json.weather[0].description + ' and the temperature is ' + json.main.temp + ' ℉';
@@ -79,7 +87,28 @@ function getWeather(city) {
             sendText(senderId, 'I failed to look up the city name.');
             return 'I failed to look up the city name.';
         }
+    });*/
+
+    https.get(restUrl, (resp) => {
+        let data = '';
+
+        // A chunk of data has been recieved.
+        resp.on('data', (chunk) => {
+            data += chunk;
+        });
+
+        // The whole response has been received. Print out the result.
+        resp.on('end', () => {
+            let json = data;
+            let msg = json.weather[0].description + ' and the temperature is ' + json.main.temp + ' ℉';
+            sendText(senderId, msg);
+            console.log(JSON.parse(data).explanation);
+        });
+
+    }).on("error", (err) => {
+        console.log("Error: " + err.message);
     });
+
 }
 
 function sendText(id, message) {
