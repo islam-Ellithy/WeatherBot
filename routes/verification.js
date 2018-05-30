@@ -40,13 +40,17 @@ router.post("/", function (req, res, next) {
 
 
                     apiaiSession.on('response', (response) => {
+
+                        
                         const result = response.result.fulfillment.speech;
 
-                        if (response.result.body.action === 'weather') {
+                        if (response.result.action === 'weather') {
                             let city = response.result.parameters['geo-city'];
-                            result = 'welcome'; //getWeather(city);
+                            result = response; //getWeather(city);
 
                         }
+                        result = response; //getWeather(city);
+
                         sendText(senderId, result);
 
                     });
