@@ -39,7 +39,7 @@ router.post("/", function (req, res, next) {
 
                 const senderId = msg.sender.id;
                 const message = msg.message.text;
-                var attachment = msg.attachments[0].type;
+                var attachment = ''; //msg.attachments[0].type;
 
                 if (senderId && message) {
                     const apiaiSession = apiAiClient.textRequest(message, {
