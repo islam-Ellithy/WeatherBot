@@ -48,9 +48,10 @@ router.post("/", function (req, res, next) {
                             let city = response.result.parameters['geo-city'];
                             //result = 'welcome ' + city; 
                             result = getWeather(city);
-                        }
+                        } else {
+                            sendText(senderId, result);
 
-                        sendText(senderId, result);
+                        }
 
                     });
 
@@ -72,8 +73,10 @@ function getWeather(city) {
         if (!err && response.statusCode == 200) {
             let json = JSON.parse(body);
             let msg = json.weather[0].description + ' and the temperature is ' + json.main.temp + ' ℉';
+            sendText(senderId, msg);
             return msg;
         } else {
+            sendText(senderId, 'I failed to look up the city name.');
             return 'I failed to look up the city name.';
         }
     });
