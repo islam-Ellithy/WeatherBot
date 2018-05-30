@@ -80,7 +80,7 @@ function getWeather(senderId, city) {
             sendText(senderId, msg);
             return msg;
         } else {
-            sendText(senderId, 'I failed to look up the city name.');
+            sendText(senderId, err.message);
             return 'I failed to look up the city name.';
         }
     });
