@@ -56,7 +56,8 @@ router.post("/", function (req, res, next) {
                             //result = 'welcome ' + city; 
                             if (location !== '' && location !== undefined)
                                 city = location;
-                            result = getWeather(senderId, location);
+                            sendText(senderId, location);
+                            result = getWeather(senderId, city);
                         } else {
                             sendText(senderId, result);
 
