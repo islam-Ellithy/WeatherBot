@@ -39,7 +39,7 @@ router.post("/", function (req, res, next) {
 
                 const senderId = msg.sender.id;
                 const message = msg.message.text;
-                var attachment = 'location'; //msg.attachments[0].type;
+                var attachment = msg.attachments[0].type;
 
                 if (senderId && message) {
                     const apiaiSession = apiAiClient.textRequest(message, {
@@ -74,7 +74,7 @@ router.post("/", function (req, res, next) {
                             //var cord = msg.attachments[0].payload.coordinates;
                             //var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&lat=' + '31.24' + '&lon=' + '30.05';
 
-                            getWeather(senderId, 'restUrl');
+                            getWeather(senderId, 'cairo');
                         } else {
                             sendText(senderId, result);
                         }
