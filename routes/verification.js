@@ -39,7 +39,6 @@ router.post("/", function (req, res, next) {
 
                 const senderId = msg.sender.id;
                 const message = msg.message.text;
-                var attachment = 'location'; //msg.attachments[0].type;
 
                 if (senderId && message) {
                     const apiaiSession = apiAiClient.textRequest(message, {
@@ -71,11 +70,12 @@ router.post("/", function (req, res, next) {
                             }
 
                         } else if (msg.message.hasOwnProperty('attachments')) {
-                            attachment = msg.message.attachments[0];
+                            var attachment = msg.message.attachments[0];
+                            var cord;
                             if (attachment.hasOwnProperty('type')) {
 
                                 if (attachment.type === 'location') {
-                                    var cord = attachment.payload.coordinates;
+                                    cord = attachment.payload.coordinates;
                                     sendText(senderId, cord.long);
                                 }
 
@@ -83,8 +83,8 @@ router.post("/", function (req, res, next) {
                                 var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&lat=' + '31.24' + '&lon=' + '30.05';
 
                                 //getWeather(senderId, restUrl);
-
                             }
+                            sendText(senderId,'location');
                         } else {
                             sendText(senderId, result);
                         }
