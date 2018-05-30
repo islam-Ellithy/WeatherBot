@@ -95,7 +95,7 @@ router.post("/", function (req, res, next) {
 function getWeather(senderId, url) {
 
     var axios = require('axios');
-    var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&q=' + city;
+    //var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&q=' + city;
 
     //var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&lat=' + '31.24' + '&lon=' + '30.05';
 
