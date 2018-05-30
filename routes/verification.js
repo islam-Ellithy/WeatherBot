@@ -133,13 +133,22 @@ const sendTextMessage = (senderId, text) => {
                 id: senderId
             },
             message: {
-                text,
-                "quick_replies": [{
-                    "content_type": "location"
-                }]
+                text: "Here is a quick reply!",
+                quick_replies: [{
+                        content_type: "text",
+                        title: "Search",
+                        payload: "<POSTBACK_PAYLOAD>",
+                        image_url: "http://s3.eu-central-1.amazonaws.com/arcadeforge/images/urls/000/000/108/original/green-ball-md.png?1447365921"
+                    },
+                    {
+                        content_type: "location"
+                    }
+                ]
             }
         }
     });
-};
+}
+
+
 
 module.exports = router;
