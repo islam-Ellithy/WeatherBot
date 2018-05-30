@@ -49,7 +49,7 @@ router.post("/", function (req, res, next) {
                             result = response; //getWeather(city);
 
                         }
-                        result = JSON.stringify(response.result); //getWeather(city);
+                        result = JSON.stringify(response.result.fulfillment); //getWeather(city);
 
                         sendText(senderId, result);
 
