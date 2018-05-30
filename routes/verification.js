@@ -101,6 +101,7 @@ function getWeather(senderId, city) {
             sendText(senderId, error.message);
 
         });
+    axios = null;
     /*
              https.get(restUrl, (resp) => {
              let data = '';
