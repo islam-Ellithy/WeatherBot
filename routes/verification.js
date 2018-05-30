@@ -51,12 +51,7 @@ router.post("/", function (req, res, next) {
 
                         var result = response.result.fulfillment.speech;
 
-                        if (attachment === 'location') {
-                            var cord = msg.attachments[0].payload.coordinates;
-                            var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&lat=' + cord.lat + '&lon=' + cord.long;
-
-                            getWeather(senderId, restUrl);
-                        } else if (response.result.action === 'weather') {
+                        if (response.result.action === 'weather') {
                             let city = response.result.parameters['geo-city'];
                             let location = response.result.parameters['location']['city'];
                             let date = response.result.parameters['date-time'];
@@ -75,6 +70,11 @@ router.post("/", function (req, res, next) {
                                 getWeather(senderId, restUrl);
                             }
 
+                        } else if (attachment === 'location') {
+                            var cord = msg.attachments[0].payload.coordinates;
+                            var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&lat=' + '31.24' + '&lon=' + '30.05';
+
+                            getWeather(senderId, restUrl);
                         } else {
                             sendText(senderId, result);
                         }
