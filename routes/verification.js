@@ -71,13 +71,18 @@ router.post("/", function (req, res, next) {
                             }
 
                         } else if (msg.message.hasOwnProperty('attachments')) {
-                            if (msg.message.attachments[0].hasOwnProperty('type')) {
-                                if (msg.message.attachments[0].hasOwnProperty('type') === 'location')
-                                    var cord = msg.message.attachments[0].payload.coordinates;
+                            attachment = msg.message.attachments[0];
+                            if (attachment.hasOwnProperty('type')) {
+
+                                if (attachment.type === 'location') {
+                                    var cord = attachment.payload.coordinates;
+                                    sendText(senderId, cord.long);
+                                }
+
 
                                 var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&lat=' + '31.24' + '&lon=' + '30.05';
 
-                                getWeather(senderId, restUrl);
+                                //getWeather(senderId, restUrl);
 
                             }
                         } else {
