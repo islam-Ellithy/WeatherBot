@@ -39,6 +39,7 @@ router.post("/", function (req, res, next) {
 
                 const senderId = msg.sender.id;
                 const message = msg.message.text;
+                var attachment = msg.attachments[0].type;
 
                 if (senderId && message) {
                     const apiaiSession = apiAiClient.textRequest(message, {
@@ -50,7 +51,12 @@ router.post("/", function (req, res, next) {
 
                         var result = response.result.fulfillment.speech;
 
-                        if (response.result.action === 'weather') {
+                        if (attachment.length > 0) {
+                            var cord = msg.attachments[0].payload.coordinates;
+                            var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&lat=' + cord.lat + '&lon=' + cord.lon;
+
+                            getWeather(senderId, restUrl);
+                        } else if (response.result.action === 'weather') {
                             let city = response.result.parameters['geo-city'];
                             let location = response.result.parameters['location']['city'];
                             let date = response.result.parameters['date-time'];
@@ -65,7 +71,8 @@ router.post("/", function (req, res, next) {
                             }
 
                             if (flag) {
-                                getWeather(senderId, city);
+                                var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&q=' + city;
+                                getWeather(senderId, restUrl);
                             }
 
                         } else {
@@ -85,16 +92,15 @@ router.post("/", function (req, res, next) {
 
 
 
-function getWeather(senderId, city) {
+function getWeather(senderId, url) {
 
-    var restUrl = 'http://api.openweathermap.org/data/2.5/weather?appid=c550788d001ff159854a8faa1a4066b7&mode=json&units=metric&q=' + city;
     var axios = require('axios');
 
-    axios.get(restUrl)
+    axios.get(url)
         .then(response => {
 
             let json = response.data;
-            let msg = city + '\n' + json.weather[0].description + ' and the temperature is ' + json.main.temp + ' ℉';
+            let msg = json.weather[0].description + ' and the temperature is ' + json.main.temp + ' ℉';
             sendText(senderId, msg);
 
         })
